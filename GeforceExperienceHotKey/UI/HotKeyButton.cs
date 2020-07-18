@@ -33,9 +33,8 @@ namespace GeforceExperienceHotKey.UI
                 keybd_event(ALT, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
                 keybd_event(F10, 0, KEYEVENTF_EXTENDEDKEY, UIntPtr.Zero);
 
-                keybd_event(ALT, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
                 keybd_event(F10, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
-
+                keybd_event(ALT, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
             }
             catch (Exception e) {
                 Logger.log.Error(e);
