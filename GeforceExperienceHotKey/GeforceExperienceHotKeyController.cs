@@ -1,7 +1,10 @@
-﻿using System;
+﻿using BeatSaberMarkupLanguage;
+using GeforceExperienceHotKey.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -34,7 +37,10 @@ namespace GeforceExperienceHotKey
             Logger.log?.Debug($"{name}: Awake()");
         }
         
-
+        public void SetUp()
+        {
+            HotKeyButton.instance.SetUp();
+        }
 
 
         private void OnDestroy()

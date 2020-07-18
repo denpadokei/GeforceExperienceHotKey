@@ -8,6 +8,7 @@ using IPA.Config.Stores;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
+using BS_Utils.Utilities;
 
 namespace GeforceExperienceHotKey
 {
@@ -17,6 +18,8 @@ namespace GeforceExperienceHotKey
     {
         internal static Plugin instance { get; private set; }
         internal static string Name => "GeforceExperienceHotKey";
+
+        private GeforceExperienceHotKeyController controller;
 
         [Init]
         /// <summary>
@@ -47,8 +50,14 @@ namespace GeforceExperienceHotKey
         public void OnApplicationStart()
         {
             Logger.log.Debug("OnApplicationStart");
-            new GameObject("GeforceExperienceHotKeyController").AddComponent<GeforceExperienceHotKeyController>();
+            this.controller = new GameObject("GeforceExperienceHotKeyController").AddComponent<GeforceExperienceHotKeyController>();
 
+            BSEvents.earlyMenuSceneLoadedFresh += this.BSEvents_earlyMenuSceneLoadedFresh;
+        }
+
+        private void BSEvents_earlyMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
+        {
+            this.controller.SetUp();
         }
 
         [OnExit]
