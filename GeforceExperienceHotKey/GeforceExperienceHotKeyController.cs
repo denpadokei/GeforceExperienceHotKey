@@ -1,6 +1,7 @@
 ﻿using BeatSaberMarkupLanguage;
 using BS_Utils.Utilities;
 using GeforceExperienceHotKey.UI;
+using GeforceExperienceHotKey.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,11 +46,11 @@ namespace GeforceExperienceHotKey
         private void BSEvents_gameSceneActive()
         {
             try {
-                var Winhdl = FindWindow(null, "Beat Saber");
+                var Winhdl = WindowManager.FindWindow(null, "Beat Saber");
                 if (Winhdl == IntPtr.Zero) {
                     return;
                 }
-                this.SetActiveWindow(Winhdl);
+                WindowManager.ActiveWindow(Winhdl);
             }
             catch (Exception e) {
                 Logger.log.Error(e);
@@ -61,33 +62,10 @@ namespace GeforceExperienceHotKey
             HotKeyButton.instance.SetUp();
         }
 
-        private void SetActiveWindow(IntPtr hWnd)
-        {
-            Logger.log.Info("Game Scene active!");
-            Logger.log.Info($"hWnd : {hWnd}");
-            SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-            SetWindowPos(hWnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
-        }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int cx, int cy, int uFlags);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr FindWindow(string lpszClass, string lpszTitle);
-
-        const int SWP_NOSIZE = 0x0001;
-        const int SWP_NOMOVE = 0x0002;
-        const int SWP_SHOWWINDOW = 0x0040;
-
-        const int HWND_TOPMOST = -1;
-        const int HWND_NOTOPMOST = -2;
-
         private void OnDestroy()
         {
             Logger.log?.Debug($"{name}: OnDestroy()");
             instance = null; // This MonoBehaviour is being destroyed, so set the static instance property to null.
-
         }
         #endregion
     }
