@@ -3,11 +3,11 @@
   "id": "GeforceExperienceHotKey",
   "name": "GeforceExperienceHotKey",
   "author": "",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "",
-  "gameVersion": "1.9.0",
+  "gameVersion": "1.12.2",
   "dependsOn": {
-    "BSIPA": "^4.0.5"
+    "BSIPA": "^4.1.3"
   },
   "features": []
 }

@@ -38,12 +38,17 @@ namespace GeforceExperienceHotKey.UI
         public void SetUp()
         {
             this._resultsViewController = Resources.FindObjectsOfTypeAll<ResultsViewController>().FirstOrDefault();
+#if DEBUG
+            foreach (var item in this._resultsViewController.GetComponentsInChildren<object>(true)) {
+                Logger.log.Debug($"{item}");
+            }
+#endif
             BSMLParser.instance.Parse(Utilities.GetResourceContent(Assembly.GetExecutingAssembly(), this.ResourceName), this._resultsViewController.gameObject, this);
             this._resultsViewController.didActivateEvent -= this._resultsViewController_didActivateEvent;
             this._resultsViewController.didActivateEvent += this._resultsViewController_didActivateEvent;
         }
 
-        private void _resultsViewController_didActivateEvent(bool firstActivation, HMUI.ViewController.ActivationType activationType)
+        private void _resultsViewController_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
             this.ButtonIntaractable = true;
         }

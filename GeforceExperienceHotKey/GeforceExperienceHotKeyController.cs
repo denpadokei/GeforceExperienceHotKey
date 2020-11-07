@@ -1,17 +1,8 @@
-﻿using BeatSaberMarkupLanguage;
-using BS_Utils.Utilities;
-using GeforceExperienceHotKey.UI;
+﻿using GeforceExperienceHotKey.UI;
 using GeforceExperienceHotKey.Utils;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GeforceExperienceHotKey
 {
@@ -37,13 +28,12 @@ namespace GeforceExperienceHotKey
             }
             GameObject.DontDestroyOnLoad(this); // Don't destroy this object on scene changes
             instance = this;
-
-            BSEvents.gameSceneActive += this.BSEvents_gameSceneActive;
-            BSEvents.menuSceneActive += this.BSEvents_gameSceneActive;
+            SceneManager.activeSceneChanged -= this.SceneManager_activeSceneChanged;
+            SceneManager.activeSceneChanged += this.SceneManager_activeSceneChanged;
             Logger.log?.Debug($"{name}: Awake()");
         }
 
-        private void BSEvents_gameSceneActive()
+        private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
         {
             try {
                 var Winhdl = WindowManager.FindWindow(null, "Beat Saber");
